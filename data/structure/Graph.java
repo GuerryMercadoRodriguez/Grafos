@@ -327,9 +327,9 @@ public class Graph {
 
     public void MostrarVerticesdeArticulacion(Vertex vertex) {
         Node<Edge> node = vertex.getEdges().getHead();
-        System.out.print("Vertices:");
+        System.out.print("Vertices de articulacion :");
         while (node != null) {
-            System.out.print("(" + node.getData().getV2().getLabel() + ") ");
+            System.out.print("[" + node.getData().getV2().getLabel() + "] ");
             node = node.getLink();
         }
     }
@@ -337,7 +337,7 @@ public class Graph {
     public static void main(String[] args) {
         Graph graph = new Graph(false);
 
-        graph.readFileInput("bolivia.txt");
+        graph.readFileInput("grafo6.txt");
         // graph.printGraph();
         graph.MostrarVerticesdeArticulacion(graph.vertexs[0]);
     }
