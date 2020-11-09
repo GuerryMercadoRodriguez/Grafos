@@ -281,18 +281,64 @@ public class Graph {
         } catch (FileNotFoundException e) {
             System.err.println(e.getMessage());
         }
+    }
 
-        /*
-         */
+    private void Repositor() {
+        Node<Vertex> node = vertexList.getHead();
+        while (node != null) {
+            node.getData().setStatus(State.NO_VISITADO);
+            node = node.getLink();
+        }
+    }
 
+    private boolean Articulado() {
+        Node<Vertex> node = vertexList.getHead();
+        int aux = 0;
+        while (node != null) {
+            Vertex vertex = node.getData();
+            if (vertex.getState().compareTo(State.NO_VISITADO) == 0) {
+                BFS(vertex);
+                aux++;            
+            }
+            node = node.getLink();
+        }
+        if (aux == 1)
+            return false;
+        else
+            return true;
+    }
+
+    public ListLinked<Vertex> VerticesDeArticulacion() {
+        Node<Vertex> node = vertexList.getHead();
+        Vertex vertex = null;
+        Boolean articulado = false;
+        ListLinked<Vertex> list = new ListLinked<>();
+        while(node!=null) {
+            vertex = node.getData();
+            vertex.setStatus(State.ELIMINADO);            
+            articulado = Articulado();
+            node = node.getLink();            
+            Repositor();
+            if(articulado)
+                list.add(vertex);
+        }
+        return list;
+    }
+
+    public void MostrarVerticesdeArticulacion(Vertex vertex) {
+        Node<Edge> node = vertex.getEdges().getHead();
+        System.out.print("Vertices:");
+        while (node != null) {
+            System.out.print("(" + node.getData().getV2().getLabel() + ") ");
+            node = node.getLink();
+        }
     }
 
     public static void main(String[] args) {
         Graph graph = new Graph(false);
 
-        graph.readFileInput("testDFS.txt");
-        graph.DFS(graph.vertexs[0], 0);
-        graph.printGraph();
+        graph.readFileInput("bolivia.txt");
+        // graph.printGraph();
+        graph.MostrarVerticesdeArticulacion(graph.vertexs[0]);
     }
 }
-//

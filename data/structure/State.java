@@ -1,5 +1,5 @@
 package data.structure;
 
 public enum State {
-    NO_VISITADO, VISITADO, PROCESADO
+    NO_VISITADO, VISITADO, PROCESADO, ELIMINADO
 }
